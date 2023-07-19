@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <title>Spotify App</title>
+        <link rel="stylesheet" type="text/css" href="/css/style.css">
+    </head>
+    <body>
+        <div class="title">
+            <p>Genre Breakdown</p>
+        </div>
+        <div id="login" class="login">
+            <button type="submit" onclick="loginFunction()">
+                login
+            </button>
+            <button type="submit" onclick="genrecheckFunction()">
+                genre breakdown
+            </button>
+            <script>
+                function loginFunction(){
+                    window.location.href = "http://localhost:3000/login/"
+                }
+
+                function genrecheckFunction(){
+                    window.location.href = "http://localhost:3000/genre-check/"
+                }
+            </script>
+
+
+
+        </div>
+    </body>
+</html>

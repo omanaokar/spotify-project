@@ -1,0 +1,12 @@
+body {
+    background-color: #302f2f;
+}
+
+.title {
+    color: whitesmoke;
+    font-size: 100px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-style: bold;
+    display: flex;
+    justify-content: center;
+}
