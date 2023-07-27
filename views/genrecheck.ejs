@@ -1,0 +1,80 @@
+<html>
+    <head>
+        <title>Spotify App</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    </head>
+    <body class=" bg-dark bg-gradient" >
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+        <div>
+            <div class="text-center">
+                <!-- <h1 class="fs-1 fw-bolder text-uppercase text-center">Genre Breakdown</h1> -->
+                <img src=" http://192.168.29.110:8080/title.png" class="img-fluid" alt="GENRE BREAKDOWN">
+            </div>
+            <div class="fs-3 text-center text-dark" id="output">
+                    <% var json = payload%>
+                    <% var playlist_names = [] %>
+                    <% var playlist_genres = [] %>
+                    
+                    <% var totals = [] %>
+                    <% console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>") %>
+                    <% for(var i=0; i<json.length; i++) { %>
+                        <% playlist_names.push(json[i]["plname"]) %>
+                        <% playlist_genres.push(json[i]["genres"]) %>
+                    <% } %>
+                    <% for(var j=0; j<playlist_genres.length; j++) { %>
+                        <% var total = 0 %>
+                        <% Object.keys(playlist_genres[j]).forEach(function(key) { %>
+                            <%   total = total + playlist_genres[j][key] %>
+                        <% }) %>
+                        <% totals.push(total) %>
+                    <% } %>
+                     
+                    <% for(var j=0; j<playlist_genres.length; j++) { %>
+                        <% var genre_names = [] %>
+                        <% var genre_values = [] %>
+                        <% var colors = [] %>
+                        <% var genresstr = "" %>
+                        <p class="text-decoration-underline text-light fw-bolder fs-1"><%=playlist_names[j] %></p>
+                        <% console.log(playlist_names[j] + " **********") %>
+                        <% console.log("Total" + totals[j]) %>
+                        <% Object.keys(playlist_genres[j]).forEach(function(key) { %>
+                            <% var temp = key.replace(/ /g, "_") %>
+                            <% genre_names.push("\""+key+"\"") %>
+                            <% genre_values.push(parseInt(playlist_genres[j][key])) %>
+                            <% colors.push("#" + Math.floor(Math.random()*16777215).toString(16)) %>
+                        <% }) %>
+                        <% console.log(genre_names) %>
+                        <%# genre_names = genresstr.split(" ") %>
+                        <div class="container-fluid">
+                            <canvas id="<%=j%>" width="100" height="100"></canvas>
+                            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                            <script>
+                                new Chart(document.getElementById('<%=j%>'), {
+                                type: 'pie',
+                                data: {
+                                    labels: [<%-genre_names%>],
+                                    datasets: [{
+                                    data: [<%=genre_values%>]
+                                    }]
+                                },
+                                options: {
+                                    title: {
+                                    display: false,
+                                    text: 'Pie Chart for admin panel'
+                                    },
+                                    responsive: true
+                                }
+                                });
+                            </script>
+                            
+                        </div>
+                        <hr class="border border-light border-2">
+                    <% } %>
+                    
+                    <% console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>") %>           
+            </div>
+            <!-- <script type="module" src="/breakdown.js"></script> -->
+        
+        
+    </body>
+</html>
